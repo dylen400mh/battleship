@@ -6,15 +6,16 @@ test("Ship has length", () => {
 });
 
 test("Ship takes a single hit", () => {
-  expect(Ship(5).hit()).toBe(1);
+  const ship = Ship(5);
+  ship.hit();
+  expect(ship.getHits()).toBe(1);
 });
 
 test("Ship takes multiple hits", () => {
   const ship = Ship(5);
   ship.hit(); // hits = 1
   ship.hit(); // hits = 2
-  // hits = 3
-  expect(ship.hit()).toBe(3);
+  expect(ship.getHits()).toBe(2);
 });
 
 test("Ship is not originally sunk", () => {

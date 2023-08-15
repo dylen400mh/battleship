@@ -5,13 +5,15 @@ const Ship = (length) => {
   // increments number of hits on a ship
   const hit = () => {
     hits += 1;
-    return hits;
   };
+
+  // returns number of hits
+  const getHits = () => hits;
 
   // determines if a ship has sunk
   const isSunk = () => length === hits;
 
-  return { length, hit, isSunk };
+  return { length, hit, getHits, isSunk };
 };
 
 export default Ship;
