@@ -4,6 +4,9 @@ const Gameboard = () => {
   // missed attacks array
   const missedAttacks = [];
 
+  // keeps track of ships on the board
+  const ships = [];
+
   // Creates board. Spots that haven't been checked are null.
   const createBoard = () => {
     const brd = [];
@@ -41,6 +44,9 @@ const Gameboard = () => {
         board[i][col] = ship;
       }
     }
+
+    // add ship to array
+    ships.push(ship);
   };
 
   const receiveAttack = (row, col) => {
@@ -54,7 +60,9 @@ const Gameboard = () => {
 
   const getMissedAttacks = () => missedAttacks;
 
-  return { getBoard, placeShip, receiveAttack, getMissedAttacks };
+  const allShipsSunk = () => ships.every((ship) => ship.isSunk());
+
+  return { getBoard, placeShip, receiveAttack, getMissedAttacks, allShipsSunk };
 };
 
 export default Gameboard;

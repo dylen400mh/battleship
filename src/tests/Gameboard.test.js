@@ -47,5 +47,14 @@ test("Missed attack recorded", () => {
   expect(board.getMissedAttacks()).toEqual([[0, 0]]);
 });
 
+test("Report when all ships are sunk", () => {
+  const board = Gameboard();
 
+  board.placeShip(1, 0, 0, "horizontal");
+  board.placeShip(1, 9, 9, "horizontal");
 
+  board.receiveAttack(0, 0);
+  expect(board.allShipsSunk()).toBeFalsy();
+  board.receiveAttack(9, 9);
+  expect(board.allShipsSunk()).toBeTruthy();
+});
