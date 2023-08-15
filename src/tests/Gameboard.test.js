@@ -28,9 +28,3 @@ test("Place vertical ship", () => {
   expect(board.getBoard()[3][0]).toBeTruthy();
   expect(board.getBoard()[4][0]).toBeTruthy();
 });
-
-test("Place ship in spot that doesn't fit does nothing", () => {
-  const board = Gameboard();
-  board.placeShip(5, 9, 6, "horizontal");
-  expect(board.getBoard()[9][6]).toBeFalsy();
-});

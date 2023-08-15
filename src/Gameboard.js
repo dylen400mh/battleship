@@ -19,17 +19,17 @@ const Gameboard = () => {
   // get current board
   const getBoard = () => board;
 
-  // Places a ship at specified coordinates and on a specified axis
+  // Places a ship at specified coordinates and on a specified axis (for now we won't verify the position here)
   const placeShip = (length, row, col, axis) => {
-    // if on horizontal axis and fits on board
-    if (axis === "horizontal" && col <= 10 - length) {
+    // if on horizontal axis
+    if (axis === "horizontal") {
       for (let i = col, j = 0; j < length; i += 1, j += 1) {
         board[row][i] = true;
       }
     }
 
-    // if on vertical axis and fits on board
-    if (axis === "vertical" && row <= 10 - length) {
+    // if on vertical axis
+    if (axis === "vertical") {
       for (let i = row, j = 0; j < length; i += 1, j += 1) {
         board[i][col] = true;
       }
