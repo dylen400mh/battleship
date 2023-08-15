@@ -1,0 +1,17 @@
+const Ship = (length) => {
+  // hits start at 0
+  let hits = 0;
+
+  // increments number of hits on a ship
+  const hit = () => {
+    hits += 1;
+    return hits;
+  };
+
+  // determines if a ship has sunk
+  const isSunk = () => length === hits;
+
+  return { length, hit, isSunk };
+};
+
+export default Ship;
