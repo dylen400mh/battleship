@@ -28,3 +28,24 @@ test("Place vertical ship", () => {
   expect(board.getBoard()[3][0]).toBeTruthy();
   expect(board.getBoard()[4][0]).toBeTruthy();
 });
+
+test("Hit is processed", () => {
+  const board = Gameboard();
+
+  board.placeShip(2, 0, 0, "horizontal");
+
+  board.receiveAttack(0, 0);
+
+  expect(board.getBoard()[0][0].getHits()).toBe(1);
+});
+
+test("Missed attack recorded", () => {
+  const board = Gameboard();
+
+  board.receiveAttack(0, 0);
+
+  expect(board.getMissedAttacks()).toEqual([[0, 0]]);
+});
+
+
+

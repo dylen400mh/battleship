@@ -1,6 +1,9 @@
 import Ship from "./Ship";
 
 const Gameboard = () => {
+  // missed attacks array
+  const missedAttacks = [];
+
   // Creates board. Spots that haven't been checked are null.
   const createBoard = () => {
     const brd = [];
@@ -40,7 +43,18 @@ const Gameboard = () => {
     }
   };
 
-  return { getBoard, placeShip };
+  const receiveAttack = (row, col) => {
+    const position = board[row][col];
+
+    // if a ship exists at the position, hit it
+    if (position) position.hit();
+    // if there is no ship at the position, add the coordinates to missed attacks array
+    else missedAttacks.push([row, col]);
+  };
+
+  const getMissedAttacks = () => missedAttacks;
+
+  return { getBoard, placeShip, receiveAttack, getMissedAttacks };
 };
 
 export default Gameboard;
