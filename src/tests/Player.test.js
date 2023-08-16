@@ -40,5 +40,24 @@ test("Players can get a random attack", () => {
   // reassign getAllMoves function to return mockMoves array
   defending.getBoard().getAllMoves = () => mockMoves;
 
-  expect(attacking.getRandomAttack(defending.getBoard())).toEqual([0, 0]);
+  // set position to some position in mockMoves
+  const row = 1;
+  const col = 1;
+
+  // get random move
+  let randomMove = attacking.getRandomMove();
+
+  // while the random move is already taken
+  while (
+    defending
+      .getBoard()
+      .getAllMoves()
+      // eslint-disable-next-line no-loop-func
+      .some((move) => move[0] === randomMove[0] && move[1] === randomMove[1])
+  ) {
+    // recall function to get a new move
+    randomMove = attacking.getRandomMove();
+  }
+
+  expect(randomMove).toEqual([0, 0]);
 });

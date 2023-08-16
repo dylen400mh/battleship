@@ -11,17 +11,9 @@ const Player = () => {
     board.receiveAttack(row, col);
   };
 
-  const getRandomAttack = (board) => {
-    let row = Math.floor(Math.random() * 10);
-    let col = Math.floor(Math.random() * 10);
-
-    while (
-      // eslint-disable-next-line no-loop-func
-      board.getAllMoves().some((move) => move[0] === row && move[1] === col)
-    ) {
-      row = Math.floor(Math.random() * 10);
-      col = Math.floor(Math.random() * 10);
-    }
+  const getRandomMove = () => {
+    const row = Math.floor(Math.random() * 10);
+    const col = Math.floor(Math.random() * 10);
 
     return [row, col];
   };
@@ -38,7 +30,7 @@ const Player = () => {
 
   const getBoard = () => board;
 
-  return { sendAttack, getRandomAttack, isTurn, startTurn, endTurn, getBoard };
+  return { sendAttack, getRandomMove, isTurn, startTurn, endTurn, getBoard };
 };
 
 export default Player;
