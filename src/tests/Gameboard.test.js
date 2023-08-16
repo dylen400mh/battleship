@@ -85,3 +85,10 @@ test("Empty positions are properly recorded", () => {
 
   expect(board.getEmptyPositions()).toEqual([[0, 0]]);
 });
+
+test("Cells with a ship are properly tracked", () => {
+  const board = Gameboard();
+
+  board.placeShip(1, 0, 0, "horizontal");
+  expect(board.getTakenPositions()).toEqual([[0, 0]]);
+});
