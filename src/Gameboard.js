@@ -70,6 +70,16 @@ const Gameboard = () => {
 
   const allShipsSunk = () => ships.every((ship) => ship.isSunk());
 
+  const getEmptyPositions = () => {
+    const emptyPositions = [];
+    for (let i = 0; i < 9; i += 1) {
+      for (let j = 0; j < 9; j += 1) {
+        if (board[i][j] === null) emptyPositions.push([i, j]);
+      }
+    }
+    return emptyPositions;
+  };
+
   return {
     getCells,
     placeShip,
@@ -77,6 +87,7 @@ const Gameboard = () => {
     getMissedAttacks,
     allShipsSunk,
     getAllMoves,
+    getEmptyPositions,
   };
 };
 

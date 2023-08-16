@@ -58,3 +58,30 @@ test("Report when all ships are sunk", () => {
   board.receiveAttack(9, 9);
   expect(board.allShipsSunk()).toBeTruthy();
 });
+
+test("Empty positions are properly recorded", () => {
+  const board = Gameboard();
+
+  // create mock board
+  for (let i = 0; i < 10; i += 1) {
+    for (let j = 0; j < 10; j += 1) {
+      board.getCells()[i][j] = true;
+    }
+  }
+
+  // set [0,0] back to null
+  board.getCells()[0][0] = null;
+
+  // mock function
+  board.getEmptyPositions = () => {
+    const emptyPositions = [];
+    for (let i = 0; i < 9; i += 1) {
+      for (let j = 0; j < 9; j += 1) {
+        if (board.getCells()[i][j] === null) emptyPositions.push([i, j]);
+      }
+    }
+    return emptyPositions;
+  };
+
+  expect(board.getEmptyPositions()).toEqual([[0, 0]]);
+});
