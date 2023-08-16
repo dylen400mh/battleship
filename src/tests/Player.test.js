@@ -40,10 +40,6 @@ test("Players can get a random attack", () => {
   // reassign getAllMoves function to return mockMoves array
   defending.getBoard().getAllMoves = () => mockMoves;
 
-  // set position to some position in mockMoves
-  const row = 1;
-  const col = 1;
-
   // get random move
   let randomMove = attacking.getRandomMove();
 
