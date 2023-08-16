@@ -41,3 +41,11 @@ body {
 .ship {
   background-color: gray;
 }
+
+.ship.hit {
+  background-color: red;
+}
+
+.ship.miss {
+  background-color: aqua;
+}
