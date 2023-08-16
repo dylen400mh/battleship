@@ -6,15 +6,15 @@ test("Place horizontal ship at specified coordinates", () => {
 
   board.placeShip(5, 0, 0, "horizontal");
   // spots taken by ship
-  expect(board.getBoard()[0][0]).toBeTruthy();
-  expect(board.getBoard()[0][1]).toBeTruthy();
-  expect(board.getBoard()[0][2]).toBeTruthy();
-  expect(board.getBoard()[0][3]).toBeTruthy();
-  expect(board.getBoard()[0][4]).toBeTruthy();
+  expect(board.getCells()[0][0]).toBeTruthy();
+  expect(board.getCells()[0][1]).toBeTruthy();
+  expect(board.getCells()[0][2]).toBeTruthy();
+  expect(board.getCells()[0][3]).toBeTruthy();
+  expect(board.getCells()[0][4]).toBeTruthy();
 });
 
 test("Positions are initially false", () => {
-  expect(Gameboard().getBoard()[0][0]).toBeFalsy();
+  expect(Gameboard().getCells()[0][0]).toBeFalsy();
 });
 
 test("Place vertical ship", () => {
@@ -22,11 +22,11 @@ test("Place vertical ship", () => {
 
   board.placeShip(5, 0, 0, "vertical");
   // spots taken by ship
-  expect(board.getBoard()[0][0]).toBeTruthy();
-  expect(board.getBoard()[1][0]).toBeTruthy();
-  expect(board.getBoard()[2][0]).toBeTruthy();
-  expect(board.getBoard()[3][0]).toBeTruthy();
-  expect(board.getBoard()[4][0]).toBeTruthy();
+  expect(board.getCells()[0][0]).toBeTruthy();
+  expect(board.getCells()[1][0]).toBeTruthy();
+  expect(board.getCells()[2][0]).toBeTruthy();
+  expect(board.getCells()[3][0]).toBeTruthy();
+  expect(board.getCells()[4][0]).toBeTruthy();
 });
 
 test("Hit is processed", () => {
@@ -36,7 +36,7 @@ test("Hit is processed", () => {
 
   board.receiveAttack(0, 0);
 
-  expect(board.getBoard()[0][0].getHits()).toBe(1);
+  expect(board.getCells()[0][0].getHits()).toBe(1);
 });
 
 test("Missed attack recorded", () => {

@@ -27,8 +27,8 @@ const Gameboard = () => {
   // creates a new board
   const board = createBoard();
 
-  // get current board
-  const getBoard = () => board;
+  // get current board cells
+  const getCells = () => board;
 
   // Places a ship at specified coordinates and on a specified axis (for now we won't verify the position here)
   const placeShip = (length, row, col, axis) => {
@@ -71,7 +71,7 @@ const Gameboard = () => {
   const allShipsSunk = () => ships.every((ship) => ship.isSunk());
 
   return {
-    getBoard,
+    getCells,
     placeShip,
     receiveAttack,
     getMissedAttacks,
