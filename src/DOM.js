@@ -1,5 +1,7 @@
 const DOM = (() => {
   const boards = document.querySelectorAll(".board");
+  const playerBoard = document.getElementById("player-board");
+  const enemyBoard = document.getElementById("enemy-board");
 
   const addBoardCells = () => {
     boards.forEach((board) => {
@@ -7,8 +9,8 @@ const DOM = (() => {
         for (let j = 0; j < 10; j += 1) {
           const cell = document.createElement("div");
           cell.classList.add("cell");
-          cell.setAttribute("row", i);
-          cell.setAttribute("col", j);
+          cell.setAttribute("data-row", i);
+          cell.setAttribute("data-col", j);
           board.appendChild(cell);
         }
       }
@@ -19,13 +21,22 @@ const DOM = (() => {
   const displayShips = (board) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const [row, col] of board.getTakenPositions()) {
-      const targetCell = document.querySelector(
-        `.cell[row="${row}"][col="${col}"]`
+      const targetCell = playerBoard.querySelector(
+        `.cell[data-row="${row}"][data-col="${col}"]`
       );
 
       targetCell.classList.add("ship");
     }
   };
+
+  enemyBoard.addEventListener("click", (e) => {
+    const cell = e.target.closest(".cell");
+
+    // if no cell was clicked do nothing
+    if (!cell) return;
+
+    const { row, col } = cell.dataset;
+  });
 
   return { addBoardCells, displayShips };
 })();
