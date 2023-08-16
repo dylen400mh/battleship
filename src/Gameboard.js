@@ -4,6 +4,9 @@ const Gameboard = () => {
   // missed attacks array
   const missedAttacks = [];
 
+  // keep track of where moves were made
+  const moves = [];
+
   // keeps track of ships on the board
   const ships = [];
 
@@ -50,6 +53,9 @@ const Gameboard = () => {
   };
 
   const receiveAttack = (row, col) => {
+    // add move to moves array
+    moves.push([row, col]);
+
     const position = board[row][col];
 
     // if a ship exists at the position, hit it
@@ -60,9 +66,18 @@ const Gameboard = () => {
 
   const getMissedAttacks = () => missedAttacks;
 
+  const getAllMoves = () => moves;
+
   const allShipsSunk = () => ships.every((ship) => ship.isSunk());
 
-  return { getBoard, placeShip, receiveAttack, getMissedAttacks, allShipsSunk };
+  return {
+    getBoard,
+    placeShip,
+    receiveAttack,
+    getMissedAttacks,
+    allShipsSunk,
+    getAllMoves,
+  };
 };
 
 export default Gameboard;
