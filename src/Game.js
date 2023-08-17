@@ -1,8 +1,15 @@
 import Player from "./Player";
-import DOM from "./DOM";
 
 const Game = (() => {
-  return { };
+  // create player objects
+  const player = Player();
+  const enemy = Player();
+
+  const getPlayer = () => player;
+
+  const getEnemy = () => enemy;
+
+  return { getPlayer, getEnemy };
 })();
 
 export default Game;

@@ -6,9 +6,9 @@ import "./styles/style.css";
 // create gameboard cells
 DOM.addBoardCells();
 
-// create player objects
-const player = Player();
-const enemy = Player();
+// access player objects
+const player = Game.getPlayer();
+const enemy = Game.getEnemy();
 
 // access player boards and set to their own variables
 const playerBoard = player.getBoard();
