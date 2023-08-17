@@ -1,10 +1,13 @@
+// eslint-disable-next-line import/no-cycle
+import Game from "./Game";
+
 const DOM = (() => {
-  const boards = document.querySelectorAll(".board");
-  const playerBoard = document.getElementById("player-board");
-  const enemyBoard = document.getElementById("enemy-board");
+  const boardContainers = document.querySelectorAll(".board");
+  const playerBoardContainer = document.getElementById("player-board");
+  const enemyBoardContainer = document.getElementById("enemy-board");
 
   const addBoardCells = () => {
-    boards.forEach((board) => {
+    boardContainers.forEach((board) => {
       for (let i = 0; i < 10; i += 1) {
         for (let j = 0; j < 10; j += 1) {
           const cell = document.createElement("div");
@@ -21,7 +24,7 @@ const DOM = (() => {
   const displayShips = (board) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const [row, col] of board.getTakenPositions()) {
-      const targetCell = playerBoard.querySelector(
+      const targetCell = playerBoardContainer.querySelector(
         `.cell[data-row="${row}"][data-col="${col}"]`
       );
 
@@ -29,13 +32,18 @@ const DOM = (() => {
     }
   };
 
-  enemyBoard.addEventListener("click", (e) => {
+  enemyBoardContainer.addEventListener("click", (e) => {
     const cell = e.target.closest(".cell");
 
     // if no cell was clicked do nothing
     if (!cell) return;
 
     const { row, col } = cell.dataset;
+
+    const player = Game.getPlayer();
+    const enemyBoard = Game.getEnemy().getBoard();
+
+    player.sendAttack(enemyBoard, [row, col]);
   });
 
   return { addBoardCells, displayShips };

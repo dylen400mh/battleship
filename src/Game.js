@@ -1,34 +1,49 @@
 import Player from "./Player";
 import DOM from "./DOM";
 
-const Game = () => {
+const Game = (() => {
   // create player objects
-  const player = Player();
-  const enemy = Player();
+  let player;
+  let enemy;
 
-  // access player boards and set to their own variables
-  const playerBoard = player.getBoard();
-  const enemyBoard = enemy.getBoard();
+  // player boards
+  let playerBoard;
+  let enemyBoard;
 
-  // add ships to each board (for now using predefined locations to make sure everything works)
-  playerBoard.placeShip(5, 0, 0, "horizontal");
-  playerBoard.placeShip(4, 2, 0, "horizontal");
-  playerBoard.placeShip(3, 4, 0, "horizontal");
-  playerBoard.placeShip(3, 6, 0, "horizontal");
-  playerBoard.placeShip(2, 8, 0, "horizontal");
+  const startGame = () => {
+    player = Player();
+    enemy = Player();
 
-  enemyBoard.placeShip(5, 0, 0, "horizontal");
-  enemyBoard.placeShip(4, 2, 0, "horizontal");
-  enemyBoard.placeShip(3, 4, 0, "horizontal");
-  enemyBoard.placeShip(3, 6, 0, "horizontal");
-  enemyBoard.placeShip(2, 8, 0, "horizontal");
+    // access player boards and set to their own variables
+    playerBoard = player.getBoard();
+    enemyBoard = enemy.getBoard();
 
-  DOM.displayShips(playerBoard);
+    // add ships to each board (for now using predefined locations to make sure everything works)
+    playerBoard.placeShip(5, 0, 0, "horizontal");
+    playerBoard.placeShip(4, 2, 0, "horizontal");
+    playerBoard.placeShip(3, 4, 0, "horizontal");
+    playerBoard.placeShip(3, 6, 0, "horizontal");
+    playerBoard.placeShip(2, 8, 0, "horizontal");
 
-  // somewhere in here deal with when a cell is clicked
-  const handleMove = (board, coords) => {
-    player.sendAttack(enemyBoard, coords);
+    enemyBoard.placeShip(5, 0, 0, "horizontal");
+    enemyBoard.placeShip(4, 2, 0, "horizontal");
+    enemyBoard.placeShip(3, 4, 0, "horizontal");
+    enemyBoard.placeShip(3, 6, 0, "horizontal");
+    enemyBoard.placeShip(2, 8, 0, "horizontal");
+
+    DOM.displayShips(playerBoard);
   };
-};
+
+  const getPlayer = () => player;
+
+  const getEnemy = () => enemy;
+
+  return { startGame, getPlayer, getEnemy };
+})();
 
 export default Game;
+
+// factory function that has state and functions. 
+// DOM needs to call from your game object to start the game, what game object would do when a cell is clicked in the UI.
+// make action and retrieve states
+// Update board states

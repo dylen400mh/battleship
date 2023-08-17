@@ -5,4 +5,4 @@ import "./styles/style.css";
 // create gameboard cells
 DOM.addBoardCells();
 
-Game();
+Game.startGame();
