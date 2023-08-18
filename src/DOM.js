@@ -33,7 +33,7 @@ const DOM = (() => {
   };
 
   const updateCellState = (board, cell) => {
-    console.log("updating cell state")
+    console.log("updating cell state");
     // if the cell is taken create a variable for it
     const takenCell = board
       .getTakenPositions()
@@ -46,12 +46,14 @@ const DOM = (() => {
     // add appropriate class to cell
     if (takenCell) cell.classList.add("hit");
     else cell.classList.add("miss");
-  
   };
 
   enemyBoardContainer.addEventListener("click", (e) => {
-    console.log(e.target)
+    console.log(e.target);
     let cell = e.target.closest(".cell");
+
+    // if no cell was clicked do nothing
+    if (!cell) return;
 
     // don't execute event if game is over OR the box has already been clicked
     if (
@@ -61,15 +63,15 @@ const DOM = (() => {
     )
       return;
 
-    // if no cell was clicked do nothing
-    if (!cell) return;
-
-    // enemy's move
-    // Calling Game.playRound with the player's move, but the return value is the enemy's move.
-    const [randomRow, randomCol] = Game.playRound(cell);
-
     const player = Game.getPlayer();
     const enemy = Game.getEnemy();
+
+    // get random position for enemy move
+    const randomPosition = enemy.getRandomMove();
+
+    // play a round with each player's move passed as an argument
+    Game.playRound(cell, randomPosition);
+
     const playerBoard = player.getBoard();
     const enemyBoard = enemy.getBoard();
 
@@ -80,10 +82,10 @@ const DOM = (() => {
     // const [randomRow, randomCol] = Game.playRound(cell);
 
     // update playerBoard if enemy made a move and game is not over
-    if (randomRow && randomCol) {
+    if (!Game.isOver()) {
       // update player board after enemy's turn
       cell = playerBoardContainer.querySelector(
-        `.cell[data-row="${randomRow}"][data-col="${randomCol}"]`
+        `.cell[data-row="${randomPosition[0]}"][data-col="${randomPosition[1]}"]`
       );
       updateCellState(playerBoard, cell);
     }

@@ -14,14 +14,14 @@ const Game = (() => {
 
   const isOver = () => playerBoard.allShipsSunk() || enemyBoard.allShipsSunk();
 
-  const playRound = (cell) => {
+  const playRound = (cell, randomPosition) => {
     const row = parseInt(cell.dataset.row, 10);
     const col = parseInt(cell.dataset.col, 10);
 
     // player's turn
     player.sendAttack(enemyBoard, [row, col]);
 
-    let randomPosition = enemy.getRandomMove();
+    
 
     // enemy takes turn if game is not over
     if (!isOver()) {
@@ -34,14 +34,13 @@ const Game = (() => {
             position[1] === randomPosition[1]
         )
       ) {
+        // eslint-disable-next-line no-param-reassign
         randomPosition = enemy.getRandomMove();
       }
 
       // send enemy's attack to player board
       enemy.sendAttack(playerBoard, randomPosition);
-    } else return [null, null];
-
-    return randomPosition;
+    }
   };
 
   return { getPlayer, getEnemy, isOver, playRound };
