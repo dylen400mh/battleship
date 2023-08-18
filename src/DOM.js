@@ -33,7 +33,6 @@ const DOM = (() => {
   };
 
   const updateCellState = (board, cell) => {
-    console.log("updating cell state");
     // if the cell is taken create a variable for it
     const takenCell = board
       .getTakenPositions()
@@ -49,7 +48,6 @@ const DOM = (() => {
   };
 
   enemyBoardContainer.addEventListener("click", (e) => {
-    console.log(e.target);
     let cell = e.target.closest(".cell");
 
     // if no cell was clicked do nothing
