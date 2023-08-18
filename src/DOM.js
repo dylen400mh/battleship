@@ -61,52 +61,8 @@ const DOM = (() => {
     )
       return;
 
-    // const player = Game.getPlayer();
-    // const enemy = Game.getEnemy();
-
-    // const playerBoard = player.getBoard();
-    // const enemyBoard = enemy.getBoard();
-
-    // from here, call playRound and pass DOM items as arguments
-    Game.playRound(cell, playerBoardContainer)
-
-    // let row = parseInt(cell.dataset.row, 10);
-    // let col = parseInt(cell.dataset.col, 10);
-
-    // // player makes move
-    // player.sendAttack(enemyBoard, [row, col]);
-
-    // updateCellState(enemyBoard, cell);
-
-    // // if the attack missed and the game is not over, switch turns
-    // if (!enemyBoard.getCells()[row][col] && !Game.isOver()) {
-    //   // enemy takes shots until they miss or the game ends
-    //   do {
-    //     // while there is not a new move generated, generate a new move
-    //     let randomPosition;
-    //     do {
-    //       // get random position for enemy move
-    //       randomPosition = enemy.getRandomMove();
-    //     } while (
-    //       playerBoard.getAllMoves().some(
-    //         // eslint-disable-next-line no-loop-func
-    //         (position) =>
-    //           position[0] === randomPosition[0] &&
-    //           position[1] === randomPosition[1]
-    //       )
-    //     );
-
-    //     enemy.sendAttack(playerBoard, randomPosition);
-
-    //     [row, col] = randomPosition;
-
-    //     // update player board after enemy's turn
-    //     cell = playerBoardContainer.querySelector(
-    //       `.cell[data-row="${row}"][data-col="${col}"]`
-    //     );
-    //     updateCellState(playerBoard, cell);
-    //   } while (playerBoard.getCells()[row][col] && !Game.isOver());
-    // }
+    // call playRound and pass DOM items as arguments
+    Game.playRound(cell, playerBoardContainer);
   });
 
   return { addBoardCells, displayShips, updateCellState };
