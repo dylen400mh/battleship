@@ -48,7 +48,7 @@ const DOM = (() => {
   };
 
   enemyBoardContainer.addEventListener("click", (e) => {
-    let cell = e.target.closest(".cell");
+    const cell = e.target.closest(".cell");
 
     // if no cell was clicked do nothing
     if (!cell) return;
@@ -61,35 +61,55 @@ const DOM = (() => {
     )
       return;
 
-    const player = Game.getPlayer();
-    const enemy = Game.getEnemy();
+    // const player = Game.getPlayer();
+    // const enemy = Game.getEnemy();
 
-    // get random position for enemy move
-    const randomPosition = enemy.getRandomMove();
+    // const playerBoard = player.getBoard();
+    // const enemyBoard = enemy.getBoard();
 
-    // play a round with each player's move passed as an argument
-    Game.playRound(cell, randomPosition);
+    // from here, call playRound and pass DOM items as arguments
+    Game.playRound(cell, playerBoardContainer)
 
-    const playerBoard = player.getBoard();
-    const enemyBoard = enemy.getBoard();
+    // let row = parseInt(cell.dataset.row, 10);
+    // let col = parseInt(cell.dataset.col, 10);
 
-    updateCellState(enemyBoard, cell);
+    // // player makes move
+    // player.sendAttack(enemyBoard, [row, col]);
 
-    // // enemy's move
-    // // Calling Game.playRound with the player's move, but the return value is the enemy's move.
-    // const [randomRow, randomCol] = Game.playRound(cell);
+    // updateCellState(enemyBoard, cell);
 
-    // update playerBoard if enemy made a move and game is not over
-    if (!Game.isOver()) {
-      // update player board after enemy's turn
-      cell = playerBoardContainer.querySelector(
-        `.cell[data-row="${randomPosition[0]}"][data-col="${randomPosition[1]}"]`
-      );
-      updateCellState(playerBoard, cell);
-    }
+    // // if the attack missed and the game is not over, switch turns
+    // if (!enemyBoard.getCells()[row][col] && !Game.isOver()) {
+    //   // enemy takes shots until they miss or the game ends
+    //   do {
+    //     // while there is not a new move generated, generate a new move
+    //     let randomPosition;
+    //     do {
+    //       // get random position for enemy move
+    //       randomPosition = enemy.getRandomMove();
+    //     } while (
+    //       playerBoard.getAllMoves().some(
+    //         // eslint-disable-next-line no-loop-func
+    //         (position) =>
+    //           position[0] === randomPosition[0] &&
+    //           position[1] === randomPosition[1]
+    //       )
+    //     );
+
+    //     enemy.sendAttack(playerBoard, randomPosition);
+
+    //     [row, col] = randomPosition;
+
+    //     // update player board after enemy's turn
+    //     cell = playerBoardContainer.querySelector(
+    //       `.cell[data-row="${row}"][data-col="${col}"]`
+    //     );
+    //     updateCellState(playerBoard, cell);
+    //   } while (playerBoard.getCells()[row][col] && !Game.isOver());
+    // }
   });
 
-  return { addBoardCells, displayShips };
+  return { addBoardCells, displayShips, updateCellState };
 })();
 
 export default DOM;

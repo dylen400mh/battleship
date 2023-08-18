@@ -28,4 +28,7 @@ enemyBoard.placeShip(2, 8, 0, "horizontal");
 
 DOM.displayShips(playerBoard);
 
+// player makes first move
+player.startTurn();
+
 

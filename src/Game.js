@@ -1,4 +1,6 @@
 import Player from "./Player";
+// eslint-disable-next-line import/no-cycle
+import DOM from "./DOM";
 
 const Game = (() => {
   // create player objects
@@ -24,30 +26,44 @@ const Game = (() => {
 
   const isOver = () => playerBoard.allShipsSunk() || enemyBoard.allShipsSunk();
 
-  const playRound = (cell, randomPosition) => {
-    const row = parseInt(cell.dataset.row, 10);
-    const col = parseInt(cell.dataset.col, 10);
+  const playRound = (cell, playerBoardContainer) => {
+    let row = parseInt(cell.dataset.row, 10);
+    let col = parseInt(cell.dataset.col, 10);
 
-    // player's turn
+    // player makes move
     player.sendAttack(enemyBoard, [row, col]);
 
-    // enemy takes turn if game is not over
-    if (!isOver()) {
-      // while there is not a new move generated, generate a new move
-      while (
-        playerBoard.getAllMoves().some(
-          // eslint-disable-next-line no-loop-func
-          (position) =>
-            position[0] === randomPosition[0] &&
-            position[1] === randomPosition[1]
-        )
-      ) {
-        // eslint-disable-next-line no-param-reassign
-        randomPosition = enemy.getRandomMove();
-      }
+    DOM.updateCellState(enemyBoard, cell);
 
-      // send enemy's attack to player board
-      enemy.sendAttack(playerBoard, randomPosition);
+    // if the attack missed and the game is not over, switch turns
+    if (!enemyBoard.getCells()[row][col] && !Game.isOver()) {
+      // enemy takes shots until they miss or the game ends
+      do {
+        // while there is not a new move generated, generate a new move
+        let randomPosition;
+        do {
+          // get random position for enemy move
+          randomPosition = enemy.getRandomMove();
+        } while (
+          playerBoard.getAllMoves().some(
+            // eslint-disable-next-line no-loop-func
+            (position) =>
+              position[0] === randomPosition[0] &&
+              position[1] === randomPosition[1]
+          )
+        );
+
+        enemy.sendAttack(playerBoard, randomPosition);
+
+        [row, col] = randomPosition;
+
+        // update player board after enemy's turn
+        // eslint-disable-next-line no-param-reassign
+        cell = playerBoardContainer.querySelector(
+          `.cell[data-row="${row}"][data-col="${col}"]`
+        );
+        DOM.updateCellState(playerBoard, cell);
+      } while (playerBoard.getCells()[row][col] && !Game.isOver());
     }
   };
 
