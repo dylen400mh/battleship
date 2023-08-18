@@ -12,6 +12,16 @@ const Game = (() => {
 
   const getEnemy = () => enemy;
 
+  const switchTurn = () => {
+    if (player.isTurn()) {
+      player.endTurn();
+      enemy.startTurn();
+    } else {
+      enemy.endTurn();
+      player.startTurn();
+    }
+  };
+
   const isOver = () => playerBoard.allShipsSunk() || enemyBoard.allShipsSunk();
 
   const playRound = (cell, randomPosition) => {
@@ -20,8 +30,6 @@ const Game = (() => {
 
     // player's turn
     player.sendAttack(enemyBoard, [row, col]);
-
-    
 
     // enemy takes turn if game is not over
     if (!isOver()) {
@@ -43,7 +51,7 @@ const Game = (() => {
     }
   };
 
-  return { getPlayer, getEnemy, isOver, playRound };
+  return { getPlayer, getEnemy, isOver, playRound, switchTurn };
 })();
 
 export default Game;
