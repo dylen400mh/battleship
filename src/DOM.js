@@ -5,6 +5,9 @@ const DOM = (() => {
   const boardContainers = document.querySelectorAll(".board");
   const playerBoardContainer = document.getElementById("player-board");
   const enemyBoardContainer = document.getElementById("enemy-board");
+  const playButton = document.getElementById("play-button");
+  const resetButton = document.getElementById("reset-button");
+  const randomButton = document.getElementById("random-button");
 
   const addBoardCells = () => {
     boardContainers.forEach((board) => {
@@ -47,7 +50,7 @@ const DOM = (() => {
     else cell.classList.add("miss");
   };
 
-  enemyBoardContainer.addEventListener("click", (e) => {
+  const handleBoardClick = (e) => {
     const cell = e.target.closest(".cell");
 
     // if no cell was clicked do nothing
@@ -63,6 +66,24 @@ const DOM = (() => {
 
     // call playRound and pass DOM items as arguments
     Game.playRound(cell, playerBoardContainer);
+  };
+
+  playButton.addEventListener("click", () => {
+    // hide unneeded buttons
+    playButton.style.display = "none";
+    randomButton.style.display = "none";
+    // add board event listener
+    enemyBoardContainer.addEventListener("click", handleBoardClick);
+  });
+
+  resetButton.addEventListener("click", () => {
+    // reset game variables here
+
+    // remove event listener for board
+    enemyBoardContainer.removeEventListener("click", handleBoardClick);
+    // show required buttons again
+    playButton.style.display = "block";
+    randomButton.style.display = "block";
   });
 
   return { addBoardCells, displayShips, updateCellState };
