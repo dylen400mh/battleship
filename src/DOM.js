@@ -32,18 +32,61 @@ const DOM = (() => {
     }
   };
 
+  const updateCellState = (board, cell) => {
+    console.log("updating cell state")
+    // if the cell is taken create a variable for it
+    const takenCell = board
+      .getTakenPositions()
+      .some(
+        (position) =>
+          position[0] === parseInt(cell.dataset.row, 10) &&
+          position[1] === parseInt(cell.dataset.col, 10)
+      );
+
+    // add appropriate class to cell
+    if (takenCell) cell.classList.add("hit");
+    else cell.classList.add("miss");
+  
+  };
+
   enemyBoardContainer.addEventListener("click", (e) => {
-    const cell = e.target.closest(".cell");
+    console.log(e.target)
+    let cell = e.target.closest(".cell");
+
+    // don't execute event if game is over OR the box has already been clicked
+    if (
+      Game.isOver() ||
+      cell.classList.contains("hit") ||
+      cell.classList.contains("miss")
+    )
+      return;
 
     // if no cell was clicked do nothing
     if (!cell) return;
 
-    const { row, col } = cell.dataset;
+    // enemy's move
+    // Calling Game.playRound with the player's move, but the return value is the enemy's move.
+    const [randomRow, randomCol] = Game.playRound(cell);
 
     const player = Game.getPlayer();
-    const enemyBoard = Game.getEnemy().getBoard();
+    const enemy = Game.getEnemy();
+    const playerBoard = player.getBoard();
+    const enemyBoard = enemy.getBoard();
 
-    player.sendAttack(enemyBoard, [row, col]);
+    updateCellState(enemyBoard, cell);
+
+    // // enemy's move
+    // // Calling Game.playRound with the player's move, but the return value is the enemy's move.
+    // const [randomRow, randomCol] = Game.playRound(cell);
+
+    // update playerBoard if enemy made a move and game is not over
+    if (randomRow && randomCol) {
+      // update player board after enemy's turn
+      cell = playerBoardContainer.querySelector(
+        `.cell[data-row="${randomRow}"][data-col="${randomCol}"]`
+      );
+      updateCellState(playerBoard, cell);
+    }
   });
 
   return { addBoardCells, displayShips };

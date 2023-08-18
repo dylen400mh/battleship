@@ -59,7 +59,9 @@ const Gameboard = () => {
     const position = board[row][col];
 
     // if a ship exists at the position, hit it
-    if (position) position.hit();
+    if (position) {
+      position.hit();
+    }
     // if there is no ship at the position, add the coordinates to missed attacks array
     else missedAttacks.push([row, col]);
   };

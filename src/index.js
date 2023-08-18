@@ -1,6 +1,5 @@
 import DOM from "./DOM";
 import Game from "./Game";
-import Player from "./Player";
 import "./styles/style.css";
 
 // create gameboard cells
@@ -28,3 +27,5 @@ enemyBoard.placeShip(3, 6, 0, "horizontal");
 enemyBoard.placeShip(2, 8, 0, "horizontal");
 
 DOM.displayShips(playerBoard);
+
+

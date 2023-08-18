@@ -42,10 +42,10 @@ body {
   background-color: gray;
 }
 
-.ship.hit {
+.hit {
   background-color: red;
 }
 
-.ship.miss {
+.miss {
   background-color: aqua;
 }
