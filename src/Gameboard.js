@@ -91,13 +91,16 @@ const Gameboard = () => {
   */
 
   const isValidPlacement = (ship) => {
-    for (const cell of ship.getCells()) {
+    const cells = ship.getCells();
+
+    for (let i = 0; i < cells.length; i += 1) {
       if (
         getTakenPositions().some(
-          (position) => position[0] === cell[0] && position[1] === cell[1]
+          (position) =>
+            position[0] === cells[i][0] && position[1] === cells[i][1]
         ) ||
-        cell[0] > 10 - ship.length ||
-        cell[1] > 10 - ship.length
+        cells[i][0] > 9 ||
+        cells[i][1] > 9
       )
         return false;
     }
@@ -112,18 +115,19 @@ const Gameboard = () => {
     while (shipLengths.length) {
       const length = shipLengths.pop();
 
-      const row = Math.floor(Math.random() * 10);
-      const col = Math.floor(Math.random() * 10);
+      let row = Math.floor(Math.random() * 10);
+      let col = Math.floor(Math.random() * 10);
 
       // If 1: Vertical. If 0: Horizontal
       const axis = Math.round(Math.random()) ? "vertical" : "horizontal";
 
-      const ship = Ship(length, row, col, axis);
+      let ship = Ship(length, row, col, axis);
 
-      // verify ship placement
+      // while ship placement isn't valid change its position
       while (!isValidPlacement(ship)) {
-        ship.row = Math.floor(Math.random() * 10);
-        ship.col = Math.floor(Math.random() * 10);
+        row = Math.floor(Math.random() * 10);
+        col = Math.floor(Math.random() * 10);
+        ship = Ship(length, row, col, axis);
       }
 
       // place ship
@@ -141,7 +145,7 @@ const Gameboard = () => {
     getEmptyPositions,
     getTakenPositions,
     getShips,
-    randomizeShips
+    randomizeShips,
   };
 };
 
