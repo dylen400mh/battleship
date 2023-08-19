@@ -31,12 +31,18 @@ const Gameboard = () => {
   // get current board cells
   const getCells = () => board;
 
+  const markSurroundingPositions = (ship) => {
+    console.log(ship);
+  };
+
   // Places a ship at specified coordinates and on a specified axis (for now we won't verify the position here)
   const placeShip = (ship) => {
     for (const cell of ship.getCells()) {
       const [row, col] = cell;
       board[row][col] = ship;
     }
+
+    markSurroundingPositions(ship);
 
     // add ship to array
     ships.push(ship);
@@ -64,8 +70,8 @@ const Gameboard = () => {
 
   const getTakenPositions = () => {
     const takenPositions = [];
-    for (let i = 0; i < 9; i += 1) {
-      for (let j = 0; j < 9; j += 1) {
+    for (let i = 0; i < 10; i += 1) {
+      for (let j = 0; j < 10; j += 1) {
         if (board[i][j] !== null) takenPositions.push([i, j]);
       }
     }
@@ -74,8 +80,8 @@ const Gameboard = () => {
 
   const getEmptyPositions = () => {
     const emptyPositions = [];
-    for (let i = 0; i < 9; i += 1) {
-      for (let j = 0; j < 9; j += 1) {
+    for (let i = 0; i < 10; i += 1) {
+      for (let j = 0; j < 10; j += 1) {
         if (board[i][j] === null) emptyPositions.push([i, j]);
       }
     }
