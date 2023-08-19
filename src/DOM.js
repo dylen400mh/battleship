@@ -8,6 +8,7 @@ const DOM = (() => {
   const playButton = document.getElementById("play-button");
   const resetButton = document.getElementById("reset-button");
   const randomButton = document.getElementById("random-button");
+  const messageContainer = document.getElementById("message");
 
   const addBoardCells = () => {
     boardContainers.forEach((board) => {
@@ -78,12 +79,17 @@ const DOM = (() => {
     Game.playRound(cell, playerBoardContainer);
   };
 
+  const updateMessage = (message) => {
+    messageContainer.textContent = message;
+  };
+
   playButton.addEventListener("click", () => {
     // hide unneeded buttons
     playButton.style.display = "none";
     randomButton.style.display = "none";
     // add board event listener
     enemyBoardContainer.addEventListener("click", handleBoardClick);
+    updateMessage("Make your move by clicking the opponent's board.");
   });
 
   resetButton.addEventListener("click", () => {
@@ -96,9 +102,10 @@ const DOM = (() => {
     // show required buttons again
     playButton.style.display = "block";
     randomButton.style.display = "block";
+    updateMessage("Place Your Ships")
   });
 
-  return { addBoardCells, displayShips, updateCellState };
+  return { addBoardCells, displayShips, updateCellState, updateMessage };
 })();
 
 export default DOM;
