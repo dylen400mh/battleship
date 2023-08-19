@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 import Gameboard from "./Gameboard";
 
-const Player = () => {
+const Player = (name) => {
   const board = Gameboard();
   let turn = false;
 
@@ -30,7 +30,15 @@ const Player = () => {
 
   const getBoard = () => board;
 
-  return { sendAttack, getRandomMove, isTurn, startTurn, endTurn, getBoard };
+  return {
+    sendAttack,
+    getRandomMove,
+    isTurn,
+    startTurn,
+    endTurn,
+    getBoard,
+    name,
+  };
 };
 
 export default Player;
