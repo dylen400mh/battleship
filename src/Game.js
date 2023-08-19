@@ -26,6 +26,8 @@ const Game = (() => {
 
   const isOver = () => playerBoard.allShipsSunk() || enemyBoard.allShipsSunk();
 
+  const getWinner = () => (playerBoard.allShipsSunk() ? enemy : player);
+
   const playRound = (cell, playerBoardContainer) => {
     let row = parseInt(cell.dataset.row, 10);
     let col = parseInt(cell.dataset.col, 10);
@@ -36,7 +38,7 @@ const Game = (() => {
     DOM.updateCellState(enemyBoard, cell);
 
     // if the attack missed and the game is not over, switch turns
-    if (!enemyBoard.getCells()[row][col] && !Game.isOver()) {
+    if (!enemyBoard.getCells()[row][col] && !isOver()) {
       // enemy takes shots until they miss or the game ends
       do {
         // while there is not a new move generated, generate a new move
@@ -63,14 +65,19 @@ const Game = (() => {
           `.cell[data-row="${row}"][data-col="${col}"]`
         );
         DOM.updateCellState(playerBoard, cell);
-      } while (playerBoard.getCells()[row][col] && !Game.isOver());
+      } while (playerBoard.getCells()[row][col] && !isOver());
     }
+
+    const winner = getWinner();
+
+    // If the game is over, update the message accordingly.
+    if (isOver()) DOM.updateMessage(`Game Over! Winner: ${winner.name}`);
   };
 
   // initialize objects for new game
   const initializeObjects = () => {
-    player = Player();
-    enemy = Player();
+    player = Player("You");
+    enemy = Player("Opponent");
     playerBoard = player.getBoard();
     enemyBoard = enemy.getBoard();
 
