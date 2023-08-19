@@ -27,12 +27,28 @@ const DOM = (() => {
   // function used to display player ships
   const displayShips = (board) => {
     // eslint-disable-next-line no-restricted-syntax
-    for (const [row, col] of board.getTakenPositions()) {
-      const targetCell = playerBoardContainer.querySelector(
-        `.cell[data-row="${row}"][data-col="${col}"]`
-      );
+    for (const ship of board.getShips()) {
+      if (ship.axis === "horizontal") {
+        for (let i = ship.col, j = 0; j < ship.length; i += 1, j += 1) {
+          const targetCell = playerBoardContainer.querySelector(
+            `.cell[data-row="${ship.row}"][data-col="${i}"]`
+          );
 
-      targetCell.classList.add("ship");
+          targetCell.classList.add("ship");
+          targetCell.setAttribute("data-size", ship.length);
+        }
+      }
+
+      if (ship.axis === "vertical") {
+        for (let i = ship.row, j = 0; j < ship.length; i += 1, j += 1) {
+          const targetCell = playerBoardContainer.querySelector(
+            `.cell[data-row="${i}"][data-col="${ship.col}"]`
+          );
+
+          targetCell.classList.add("ship");
+          targetCell.setAttribute("data-size", ship.length);
+        }
+      }
     }
   };
 
@@ -102,10 +118,15 @@ const DOM = (() => {
     // show required buttons again
     playButton.style.display = "block";
     randomButton.style.display = "block";
-    updateMessage("Place Your Ships")
+    updateMessage("Place Your Ships");
   });
 
-  return { addBoardCells, displayShips, updateCellState, updateMessage };
+  return {
+    addBoardCells,
+    displayShips,
+    updateCellState,
+    updateMessage,
+  };
 })();
 
 export default DOM;
