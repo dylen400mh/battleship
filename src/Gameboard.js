@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import Ship from "./Ship";
 
 const Gameboard = () => {
@@ -31,21 +32,10 @@ const Gameboard = () => {
   const getCells = () => board;
 
   // Places a ship at specified coordinates and on a specified axis (for now we won't verify the position here)
-  const placeShip = (length, row, col, axis) => {
-    const ship = Ship(length, row, col, axis);
-
-    // if on horizontal axis
-    if (axis === "horizontal") {
-      for (let i = col, j = 0; j < length; i += 1, j += 1) {
-        board[row][i] = ship;
-      }
-    }
-
-    // if on vertical axis
-    if (axis === "vertical") {
-      for (let i = row, j = 0; j < length; i += 1, j += 1) {
-        board[i][col] = ship;
-      }
+  const placeShip = (ship) => {
+    for (const cell of ship.getCells()) {
+      const [row, col] = cell;
+      board[row][col] = ship;
     }
 
     // add ship to array
@@ -101,7 +91,6 @@ const Gameboard = () => {
   */
 
   const isValidPlacement = (ship) => {
-    // eslint-disable-next-line no-restricted-syntax
     for (const cell of ship.getCells()) {
       if (
         getTakenPositions().some(
@@ -116,7 +105,31 @@ const Gameboard = () => {
     return true;
   };
 
-  
+  const randomizeShips = () => {
+    const shipLengths = [2, 3, 3, 4, 5];
+
+    // while there are ships left to place
+    while (shipLengths.length) {
+      const length = shipLengths.pop();
+
+      const row = Math.floor(Math.random() * 10);
+      const col = Math.floor(Math.random() * 10);
+
+      // If 1: Vertical. If 0: Horizontal
+      const axis = Math.round(Math.random()) ? "vertical" : "horizontal";
+
+      const ship = Ship(length, row, col, axis);
+
+      // verify ship placement
+      while (!isValidPlacement(ship)) {
+        ship.row = Math.floor(Math.random() * 10);
+        ship.col = Math.floor(Math.random() * 10);
+      }
+
+      // place ship
+      placeShip(ship);
+    }
+  };
 
   return {
     getCells,
@@ -128,6 +141,7 @@ const Gameboard = () => {
     getEmptyPositions,
     getTakenPositions,
     getShips,
+    randomizeShips
   };
 };
 
