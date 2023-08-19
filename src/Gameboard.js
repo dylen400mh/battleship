@@ -92,6 +92,8 @@ const Gameboard = () => {
     return emptyPositions;
   };
 
+  const getShips = () => ships;
+
   return {
     getCells,
     placeShip,
@@ -101,6 +103,7 @@ const Gameboard = () => {
     getAllMoves,
     getEmptyPositions,
     getTakenPositions,
+    getShips
   };
 };
 
