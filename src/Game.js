@@ -3,12 +3,12 @@ import Player from "./Player";
 import DOM from "./DOM";
 
 const Game = (() => {
-  // create player objects
-  const player = Player();
-  const enemy = Player();
+  // create objects
+  let player = Player();
+  let enemy = Player();
 
-  const playerBoard = player.getBoard();
-  const enemyBoard = enemy.getBoard();
+  let playerBoard = player.getBoard();
+  let enemyBoard = enemy.getBoard();
 
   const getPlayer = () => player;
 
@@ -67,7 +67,35 @@ const Game = (() => {
     }
   };
 
-  return { getPlayer, getEnemy, isOver, playRound, switchTurn };
+  // initialize objects for new game
+  const initializeObjects = () => {
+    player = Player();
+    enemy = Player();
+    playerBoard = player.getBoard();
+    enemyBoard = enemy.getBoard();
+
+    // add ships to each board (for now using predefined locations to make sure everything works)
+    playerBoard.placeShip(5, 0, 0, "horizontal");
+    playerBoard.placeShip(4, 2, 0, "horizontal");
+    playerBoard.placeShip(3, 4, 0, "horizontal");
+    playerBoard.placeShip(3, 6, 0, "horizontal");
+    playerBoard.placeShip(2, 8, 0, "horizontal");
+
+    enemyBoard.placeShip(5, 0, 0, "horizontal");
+    enemyBoard.placeShip(4, 2, 0, "horizontal");
+    enemyBoard.placeShip(3, 4, 0, "horizontal");
+    enemyBoard.placeShip(3, 6, 0, "horizontal");
+    enemyBoard.placeShip(2, 8, 0, "horizontal");
+  };
+
+  return {
+    getPlayer,
+    getEnemy,
+    isOver,
+    playRound,
+    switchTurn,
+    initializeObjects,
+  };
 })();
 
 export default Game;

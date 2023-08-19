@@ -35,6 +35,16 @@ const DOM = (() => {
     }
   };
 
+  // removes hit and miss markers from board
+  const resetBoardState = () => {
+    const cellContainers = document.querySelectorAll(".cell");
+
+    cellContainers.forEach((cell) => {
+      if (cell.classList.contains("hit")) cell.classList.remove("hit");
+      if (cell.classList.contains("miss")) cell.classList.remove("miss");
+    });
+  };
+
   const updateCellState = (board, cell) => {
     // if the cell is taken create a variable for it
     const takenCell = board
@@ -77,7 +87,9 @@ const DOM = (() => {
   });
 
   resetButton.addEventListener("click", () => {
-    // reset game variables here
+    // reset game variables and board state here
+    resetBoardState();
+    Game.initializeObjects();
 
     // remove event listener for board
     enemyBoardContainer.removeEventListener("click", handleBoardClick);
