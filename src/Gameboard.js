@@ -32,7 +32,7 @@ const Gameboard = () => {
 
   // Places a ship at specified coordinates and on a specified axis (for now we won't verify the position here)
   const placeShip = (length, row, col, axis) => {
-    const ship = Ship(length);
+    const ship = Ship(length, row, col, axis);
 
     // if on horizontal axis
     if (axis === "horizontal") {
@@ -103,7 +103,7 @@ const Gameboard = () => {
     getAllMoves,
     getEmptyPositions,
     getTakenPositions,
-    getShips
+    getShips,
   };
 };
 

@@ -1,4 +1,4 @@
-const Ship = (length) => {
+const Ship = (length, row, col, axis) => {
   // hits start at 0
   let hits = 0;
 
@@ -13,7 +13,7 @@ const Ship = (length) => {
   // determines if a ship has sunk
   const isSunk = () => length === hits;
 
-  return { length, hit, getHits, isSunk };
+  return { length, hit, getHits, isSunk, row, col, axis };
 };
 
 export default Ship;
