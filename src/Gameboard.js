@@ -32,7 +32,7 @@ const Gameboard = () => {
   const getCells = () => board;
 
   const markSurroundingPositions = (ship) => {
-    console.log(ship);
+    console.log(ship.getCells());
   };
 
   // Places a ship at specified coordinates and on a specified axis (for now we won't verify the position here)
@@ -76,16 +76,6 @@ const Gameboard = () => {
       }
     }
     return takenPositions;
-  };
-
-  const getEmptyPositions = () => {
-    const emptyPositions = [];
-    for (let i = 0; i < 10; i += 1) {
-      for (let j = 0; j < 10; j += 1) {
-        if (board[i][j] === null) emptyPositions.push([i, j]);
-      }
-    }
-    return emptyPositions;
   };
 
   const getShips = () => ships;
@@ -148,7 +138,6 @@ const Gameboard = () => {
     getMissedAttacks,
     allShipsSunk,
     getAllMoves,
-    getEmptyPositions,
     getTakenPositions,
     getShips,
     randomizeShips,
