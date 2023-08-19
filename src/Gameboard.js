@@ -94,6 +94,30 @@ const Gameboard = () => {
 
   const getShips = () => ships;
 
+  /* Check:
+  1. Ships don't overlap
+  2. Ships stay on board
+  3. At least one space between all ships
+  */
+
+  const isValidPlacement = (ship) => {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const cell of ship.getCells()) {
+      if (
+        getTakenPositions().some(
+          (position) => position[0] === cell[0] && position[1] === cell[1]
+        ) ||
+        cell[0] > 10 - ship.length ||
+        cell[1] > 10 - ship.length
+      )
+        return false;
+    }
+
+    return true;
+  };
+
+  
+
   return {
     getCells,
     placeShip,
