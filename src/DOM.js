@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 // eslint-disable-next-line import/no-cycle
 import Game from "./Game";
 
@@ -62,8 +63,53 @@ const DOM = (() => {
     });
   };
 
+  const revealSurroundingCells = (board, cell) => {
+    const row = parseInt(cell.dataset.row, 10);
+    const col = parseInt(cell.dataset.col, 10);
+
+    const parent = cell.parentElement;
+
+    // get surrounding corner cells
+    const surroundingCorners = [...parent.children].filter(
+      (sibling) =>
+        Math.abs(row - sibling.dataset.row) === 1 &&
+        Math.abs(col - sibling.dataset.col) === 1
+    );
+
+    // Reveal each corner
+    surroundingCorners.forEach((corner) => {
+      corner.classList.add("miss");
+    });
+
+    // If ship is sunk, reveal remaining sides
+    const sunkShips = board.getShips().filter((ship) => ship.isSunk());
+
+    sunkShips.forEach((ship) => {
+      ship.getCells().forEach((cell) => {
+        const [row, col] = cell;
+        for (let i = row - 1; i <= row + 1; i += 1) {
+          for (let j = col - 1; j <= col + 1; j += 1) {
+            if (
+              i >= 0 &&
+              i <= 9 &&
+              j >= 0 &&
+              j <= 9 &&
+              board.getCells()[i][j] === 1
+            ) {
+              const cellElement = parent.querySelector(
+                `.cell[data-row="${i}"][data-col="${j}"]`
+              );
+
+              cellElement.classList.add("miss");
+            }
+          }
+        }
+      });
+    });
+  };
+
   const updateCellState = (board, cell) => {
-    // if the cell is taken create a variable for it
+    // if the cell is taken and its not a surrounding position, create a variable for it
     const takenCell = board
       .getTakenPositions()
       .some(
@@ -73,8 +119,10 @@ const DOM = (() => {
       );
 
     // add appropriate class to cell
-    if (takenCell) cell.classList.add("hit");
-    else cell.classList.add("miss");
+    if (takenCell) {
+      cell.classList.add("hit");
+      revealSurroundingCells(board, cell);
+    } else cell.classList.add("miss");
   };
 
   const handleBoardClick = (e) => {
@@ -126,6 +174,7 @@ const DOM = (() => {
     displayShips,
     updateCellState,
     updateMessage,
+    revealSurroundingCells,
   };
 })();
 
