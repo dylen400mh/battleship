@@ -14,16 +14,6 @@ const Game = (() => {
 
   const getEnemy = () => enemy;
 
-  const switchTurn = () => {
-    if (player.isTurn()) {
-      player.endTurn();
-      enemy.startTurn();
-    } else {
-      enemy.endTurn();
-      player.startTurn();
-    }
-  };
-
   const isOver = () => playerBoard.allShipsSunk() || enemyBoard.allShipsSunk();
 
   const getWinner = () => (playerBoard.allShipsSunk() ? enemy : player);
@@ -91,7 +81,6 @@ const Game = (() => {
     getEnemy,
     isOver,
     playRound,
-    switchTurn,
     initializeObjects,
   };
 })();
