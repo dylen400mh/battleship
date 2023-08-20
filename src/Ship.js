@@ -24,13 +24,10 @@ const Ship = (length, row, col, axis) => {
     hits += 1;
   };
 
-  // returns number of hits
-  const getHits = () => hits;
-
   // determines if a ship has sunk
   const isSunk = () => length === hits;
 
-  return { length, hit, getHits, isSunk, row, col, axis, getCells };
+  return { length, row, col, axis, hit, isSunk, getCells };
 };
 
 export default Ship;
