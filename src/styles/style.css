@@ -102,4 +102,33 @@ button {
   width: 10rem;
   height: 4rem;
   font-size: 1.5rem;
+  outline: none;
+  border: 0;
+  border-radius: 10px;
+  -webkit-box-shadow: 5px 5px 15px 5px #000000;
+  box-shadow: 5px 5px 15px 3px #000000;
+}
+
+#reset-button {
+  background: red;
+}
+
+#reset-button:hover {
+  background: rgba(255, 0, 0, 0.7);
+}
+
+#play-button {
+  background: rgb(0, 200, 0);
+}
+
+#play-button:hover {
+  background: rgba(0, 200, 0, 0.7);
+}
+
+#random-button {
+  background: rgb(230, 230, 0);
+}
+
+#random-button:hover {
+  background: rgba(230, 230, 0, 0.7);
 }
