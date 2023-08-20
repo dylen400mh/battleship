@@ -2,14 +2,14 @@
 import Ship from "./Ship";
 
 const Gameboard = () => {
-  // missed attacks array
-  const missedAttacks = [];
-
   // keep track of where moves were made
   const moves = [];
 
   // keeps track of ships on the board
   const ships = [];
+
+  // keeps track of surrounding positions on board
+  const surroundingPositions = [];
 
   // Creates board. Spots that haven't been checked are null.
   const createBoard = () => {
@@ -31,11 +31,22 @@ const Gameboard = () => {
   // get current board cells
   const getCells = () => board;
 
+  // set surrounding positions of ship to equal 1 and add index to array
   const markSurroundingPositions = (ship) => {
-    console.log(ship.getCells());
+    ship.getCells().forEach((cell) => {
+      const [row, col] = cell;
+      for (let i = row - 1; i <= row + 1; i += 1) {
+        for (let j = col - 1; j <= col + 1; j += 1) {
+          if (i >= 0 && i <= 9 && j >= 0 && j <= 9 && board[i][j] === null) {
+            board[i][j] = 1;
+            surroundingPositions.push([i, j]);
+          }
+        }
+      }
+    });
   };
 
-  // Places a ship at specified coordinates and on a specified axis (for now we won't verify the position here)
+  // Places a ship at specified coordinates and on a specified axis
   const placeShip = (ship) => {
     for (const cell of ship.getCells()) {
       const [row, col] = cell;
@@ -43,7 +54,6 @@ const Gameboard = () => {
     }
 
     markSurroundingPositions(ship);
-
     // add ship to array
     ships.push(ship);
   };
@@ -55,24 +65,24 @@ const Gameboard = () => {
     const position = board[row][col];
 
     // if a ship exists at the position, hit it
-    if (position) {
+    if (position && position !== 1) {
       position.hit();
     }
-    // if there is no ship at the position, add the coordinates to missed attacks array
-    else missedAttacks.push([row, col]);
   };
-
-  const getMissedAttacks = () => missedAttacks;
 
   const getAllMoves = () => moves;
 
   const allShipsSunk = () => ships.every((ship) => ship.isSunk());
 
+  const getSurroundingPositions = () => surroundingPositions;
+
+  // get positions that have a ship on them
   const getTakenPositions = () => {
     const takenPositions = [];
     for (let i = 0; i < 10; i += 1) {
       for (let j = 0; j < 10; j += 1) {
-        if (board[i][j] !== null) takenPositions.push([i, j]);
+        if (board[i][j] !== null && board[i][j] !== 1)
+          takenPositions.push([i, j]);
       }
     }
     return takenPositions;
@@ -91,6 +101,10 @@ const Gameboard = () => {
 
     for (let i = 0; i < cells.length; i += 1) {
       if (
+        getSurroundingPositions().some(
+          (position) =>
+            position[0] === cells[i][0] && position[1] === cells[i][1]
+        ) ||
         getTakenPositions().some(
           (position) =>
             position[0] === cells[i][0] && position[1] === cells[i][1]
@@ -135,12 +149,12 @@ const Gameboard = () => {
     getCells,
     placeShip,
     receiveAttack,
-    getMissedAttacks,
     allShipsSunk,
     getAllMoves,
     getTakenPositions,
     getShips,
     randomizeShips,
+    getSurroundingPositions,
   };
 };
 
