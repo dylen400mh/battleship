@@ -172,6 +172,7 @@ const Gameboard = () => {
     getShips,
     randomizeShips,
     getSurroundingPositions,
+    removeShips,
   };
 };
 
