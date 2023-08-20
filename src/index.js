@@ -5,8 +5,8 @@ import "./styles/style.css";
 // create gameboard cells
 DOM.addBoardCells();
 
+// initalize objects
 Game.initializeObjects();
 
-const playerBoard = Game.getPlayer().getBoard();
-
-DOM.displayShips(playerBoard);
+// display player ships
+DOM.displayShips(Game.getPlayer().getBoard());
