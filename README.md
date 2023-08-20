@@ -1,5 +1,7 @@
 # Battleship
 
+[LIVE DEMO](https://dylen400mh.github.io/battleship/)
+
 This project is a digital implementation of the classic game 'Battleship,' showcasing skills in Test Driven Development (TDD), modular code organization, effective DOM manipulation, and strategic game logic.
 
 ## Project Overview
