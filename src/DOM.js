@@ -4,6 +4,7 @@
 import Game from "./Game";
 
 const DOM = (() => {
+  // html elements
   const boardContainers = document.querySelectorAll(".board");
   const playerBoardContainer = document.getElementById("player-board");
   const enemyBoardContainer = document.getElementById("enemy-board");
@@ -12,6 +13,7 @@ const DOM = (() => {
   const randomButton = document.getElementById("random-button");
   const messageContainer = document.getElementById("message");
 
+  // dynamically adds board cells with data attributes referencing row and column positions
   const addBoardCells = () => {
     boardContainers.forEach((board) => {
       for (let i = 0; i < 10; i += 1) {
@@ -37,6 +39,7 @@ const DOM = (() => {
     // clear existing ships
     clearShips();
 
+    // for each ship on the board add the ship class and a data attribute for size
     for (const ship of board.getShips()) {
       if (ship.axis === "horizontal") {
         for (let i = ship.col, j = 0; j < ship.length; i += 1, j += 1) {
@@ -72,6 +75,7 @@ const DOM = (() => {
     });
   };
 
+  // reveals surrounding cells of a ship that has been hit
   const revealSurroundingCells = (board, cell) => {
     const row = parseInt(cell.dataset.row, 10);
     const col = parseInt(cell.dataset.col, 10);
@@ -117,6 +121,7 @@ const DOM = (() => {
     });
   };
 
+  // update cell states of board display after each move
   const updateCellState = (board, cell) => {
     // if the cell is taken and its not a surrounding position, create a variable for it
     const takenCell = board
@@ -134,6 +139,7 @@ const DOM = (() => {
     } else cell.classList.add("miss");
   };
 
+  // handles clicks on enemy board
   const handleBoardClick = (e) => {
     const cell = e.target.closest(".cell");
 
@@ -152,10 +158,12 @@ const DOM = (() => {
     Game.playRound(cell, playerBoardContainer);
   };
 
+  // updates message on display
   const updateMessage = (message) => {
     messageContainer.textContent = message;
   };
 
+  // handles play button clicks
   const handlePlayButtonClick = () => {
     // hide unneeded buttons
     playButton.style.display = "none";
@@ -165,15 +173,19 @@ const DOM = (() => {
     updateMessage("Make your move by clicking the opponent's board.");
   };
 
+  // handles random button clicks
   const handleRandomButtonClick = () => {
     Game.initializeObjects();
     displayShips(Game.getPlayer().getBoard());
   };
 
+  // handles reset button clicks
   const handleResetButtonClick = () => {
-    // reset game variables and board state here
+    // reset game variables and board state
     resetBoardState();
     Game.initializeObjects();
+
+    // update displayed ships
     displayShips(Game.getPlayer().getBoard());
 
     // remove event listener for board
@@ -184,6 +196,7 @@ const DOM = (() => {
     updateMessage("Place Your Ships");
   };
 
+  // event listeners
   playButton.addEventListener("click", handlePlayButtonClick);
 
   resetButton.addEventListener("click", handleResetButtonClick);

@@ -8,7 +8,7 @@ const Gameboard = () => {
   // keeps track of ships on the board
   let ships = [];
 
-  // Creates board. Spots that haven't been checked are null.
+  // Creates board. Spots that have no ships is not a surrounding position are null by default.
   const createBoard = () => {
     const brd = [];
     for (let i = 0; i < 10; i += 1) {
@@ -28,7 +28,7 @@ const Gameboard = () => {
   // get current board cells
   const getCells = () => board;
 
-  // set surrounding positions of ship to equal 0 and add index to array
+  // set surrounding positions of ship to equal 0
   const markSurroundingPositions = (ship) => {
     ship.getCells().forEach((cell) => {
       const [row, col] = cell;
@@ -49,11 +49,14 @@ const Gameboard = () => {
       board[row][col] = ship;
     }
 
+    // mark surrounding positions
     markSurroundingPositions(ship);
+
     // add ship to array
     ships.push(ship);
   };
 
+  // receives an attack from a player
   const receiveAttack = (row, col) => {
     // add move to moves array
     moves.push([row, col]);
@@ -66,10 +69,13 @@ const Gameboard = () => {
     }
   };
 
+  // get all moves made on the board
   const getAllMoves = () => moves;
 
+  // returns whether all the board's ships are sunk
   const allShipsSunk = () => ships.every((ship) => ship.isSunk());
 
+  // Get all surrounding positions on the board. Surrounding positions have a value of 0
   const getSurroundingPositions = () => {
     const surroundingPositions = [];
     for (let i = 0; i < 10; i += 1) {
@@ -80,7 +86,7 @@ const Gameboard = () => {
     return surroundingPositions;
   };
 
-  // get positions that have a ship on them
+  // get positions that have a ship object on them
   const getTakenPositions = () => {
     const takenPositions = [];
     for (let i = 0; i < 10; i += 1) {
@@ -91,6 +97,7 @@ const Gameboard = () => {
     return takenPositions;
   };
 
+  // get all ships on a board
   const getShips = () => ships;
 
   /* Check:
@@ -132,6 +139,7 @@ const Gameboard = () => {
     ships = [];
   };
 
+  // randomize ship placement on board
   const randomizeShips = () => {
     // if there are ships on the board, remove them
     removeShips();
@@ -148,6 +156,7 @@ const Gameboard = () => {
       // If 1: Vertical. If 0: Horizontal
       const axis = Math.round(Math.random()) ? "vertical" : "horizontal";
 
+      // create a new ship
       let ship = Ship(length, row, col, axis);
 
       // while ship placement isn't valid change its position

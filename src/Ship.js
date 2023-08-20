@@ -2,6 +2,7 @@ const Ship = (length, row, col, axis) => {
   // hits start at 0
   let hits = 0;
 
+  // get the cells a ship occupies
   const getCells = () => {
     const cells = [];
     if (axis === "horizontal") {
