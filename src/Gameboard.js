@@ -6,7 +6,7 @@ const Gameboard = () => {
   const moves = [];
 
   // keeps track of ships on the board
-  const ships = [];
+  let ships = [];
 
   // Creates board. Spots that haven't been checked are null.
   const createBoard = () => {
@@ -128,9 +128,14 @@ const Gameboard = () => {
         board[i][j] = null;
       }
     }
+
+    ships = [];
   };
 
   const randomizeShips = () => {
+    // if there are ships on the board, remove them
+    removeShips();
+
     const shipLengths = [2, 3, 3, 4, 5];
 
     // while there are ships left to place
