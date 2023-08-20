@@ -170,7 +170,6 @@ const Gameboard = () => {
     getTakenPositions,
     getShips,
     randomizeShips,
-    removeShips,
   };
 };
 
