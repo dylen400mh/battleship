@@ -31,14 +31,14 @@ const Gameboard = () => {
   // get current board cells
   const getCells = () => board;
 
-  // set surrounding positions of ship to equal 1 and add index to array
+  // set surrounding positions of ship to equal 0 and add index to array
   const markSurroundingPositions = (ship) => {
     ship.getCells().forEach((cell) => {
       const [row, col] = cell;
       for (let i = row - 1; i <= row + 1; i += 1) {
         for (let j = col - 1; j <= col + 1; j += 1) {
           if (i >= 0 && i <= 9 && j >= 0 && j <= 9 && board[i][j] === null) {
-            board[i][j] = 1;
+            board[i][j] = 0;
             surroundingPositions.push([i, j]);
           }
         }
@@ -65,7 +65,7 @@ const Gameboard = () => {
     const position = board[row][col];
 
     // if a ship exists at the position, hit it
-    if (position && position !== 1) {
+    if (position) {
       position.hit();
     }
   };
@@ -81,7 +81,7 @@ const Gameboard = () => {
     const takenPositions = [];
     for (let i = 0; i < 10; i += 1) {
       for (let j = 0; j < 10; j += 1) {
-        if (board[i][j] !== null && board[i][j] !== 1)
+        if (board[i][j])
           takenPositions.push([i, j]);
       }
     }

@@ -59,7 +59,7 @@ const Game = (() => {
 
         [row, col] = randomPosition;
 
-        // update player board after enemy's turn
+        // update player board after enemy's turn if they hit a shot thats not a surrounding position and the game is not over
         // eslint-disable-next-line no-param-reassign
         cell = playerBoardContainer.querySelector(
           `.cell[data-row="${row}"][data-col="${col}"]`

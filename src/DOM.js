@@ -94,7 +94,7 @@ const DOM = (() => {
               i <= 9 &&
               j >= 0 &&
               j <= 9 &&
-              board.getCells()[i][j] === 1
+              board.getCells()[i][j] === 0
             ) {
               const cellElement = parent.querySelector(
                 `.cell[data-row="${i}"][data-col="${j}"]`
