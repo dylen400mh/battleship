@@ -164,14 +164,12 @@ const Gameboard = () => {
 
   return {
     getCells,
-    placeShip,
     receiveAttack,
     allShipsSunk,
     getAllMoves,
     getTakenPositions,
     getShips,
     randomizeShips,
-    getSurroundingPositions,
     removeShips,
   };
 };
