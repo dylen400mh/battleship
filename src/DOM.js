@@ -195,7 +195,6 @@ const DOM = (() => {
     displayShips,
     updateCellState,
     updateMessage,
-    revealSurroundingCells,
   };
 })();
 
