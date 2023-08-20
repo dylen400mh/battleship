@@ -3,7 +3,6 @@ import Gameboard from "./Gameboard";
 
 const Player = (name) => {
   const board = Gameboard();
-  let turn = false;
 
   const sendAttack = (board, coords) => {
     const [row, col] = coords;
@@ -18,24 +17,11 @@ const Player = (name) => {
     return [row, col];
   };
 
-  const isTurn = () => turn;
-
-  const startTurn = () => {
-    turn = true;
-  };
-
-  const endTurn = () => {
-    turn = false;
-  };
-
   const getBoard = () => board;
 
   return {
     sendAttack,
     getRandomMove,
-    isTurn,
-    startTurn,
-    endTurn,
     getBoard,
     name,
   };
