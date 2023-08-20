@@ -16,7 +16,7 @@ This project demonstrates skills in:
 ## Future Implementations
 In the future, the following features may be added:
 
-- "Drag and Drop" for ship placement
+- "Drag and Drop" for ship placement.
 - Implementation of a smart AI to attack adjacent cells if a ship is hit.
 - "Pass and Play" Multiplayer mode to be played on a mobile device.
 
