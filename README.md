@@ -13,7 +13,7 @@ This project demonstrates skills in:
 - Manipulating the DOM to provide a user-friendly interface.
 - Implementing intricate game logic including win conditions and ship placement.
 
-##Future Implementations
+## Future Implementations
 In the future, the following features may be added:
 
 - "Drag and Drop" for ship placement
