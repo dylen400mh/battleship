@@ -8,9 +8,6 @@ const Gameboard = () => {
   // keeps track of ships on the board
   const ships = [];
 
-  // keeps track of surrounding positions on board
-  const surroundingPositions = [];
-
   // Creates board. Spots that haven't been checked are null.
   const createBoard = () => {
     const brd = [];
@@ -39,7 +36,6 @@ const Gameboard = () => {
         for (let j = col - 1; j <= col + 1; j += 1) {
           if (i >= 0 && i <= 9 && j >= 0 && j <= 9 && board[i][j] === null) {
             board[i][j] = 0;
-            surroundingPositions.push([i, j]);
           }
         }
       }
@@ -74,15 +70,22 @@ const Gameboard = () => {
 
   const allShipsSunk = () => ships.every((ship) => ship.isSunk());
 
-  const getSurroundingPositions = () => surroundingPositions;
+  const getSurroundingPositions = () => {
+    const surroundingPositions = [];
+    for (let i = 0; i < 10; i += 1) {
+      for (let j = 0; j < 10; j += 1) {
+        if (board[i][j] === 0) surroundingPositions.push([i, j]);
+      }
+    }
+    return surroundingPositions;
+  };
 
   // get positions that have a ship on them
   const getTakenPositions = () => {
     const takenPositions = [];
     for (let i = 0; i < 10; i += 1) {
       for (let j = 0; j < 10; j += 1) {
-        if (board[i][j])
-          takenPositions.push([i, j]);
+        if (board[i][j]) takenPositions.push([i, j]);
       }
     }
     return takenPositions;
@@ -116,6 +119,15 @@ const Gameboard = () => {
     }
 
     return true;
+  };
+
+  // reset each board position to null and reset ships array
+  const removeShips = () => {
+    for (let i = 0; i < 10; i += 1) {
+      for (let j = 0; j < 10; j += 1) {
+        board[i][j] = null;
+      }
+    }
   };
 
   const randomizeShips = () => {
