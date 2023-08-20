@@ -147,16 +147,20 @@ const DOM = (() => {
     messageContainer.textContent = message;
   };
 
-  playButton.addEventListener("click", () => {
+  const handlePlayButtonClick = () => {
     // hide unneeded buttons
     playButton.style.display = "none";
     randomButton.style.display = "none";
     // add board event listener
     enemyBoardContainer.addEventListener("click", handleBoardClick);
     updateMessage("Make your move by clicking the opponent's board.");
-  });
+  };
 
-  resetButton.addEventListener("click", () => {
+  const handleRandomButtonClick = () => {
+    
+  }
+
+  const handleResetButtonClick = () => {
     // reset game variables and board state here
     resetBoardState();
     Game.initializeObjects();
@@ -167,7 +171,13 @@ const DOM = (() => {
     playButton.style.display = "block";
     randomButton.style.display = "block";
     updateMessage("Place Your Ships");
-  });
+  };
+
+  playButton.addEventListener("click", handlePlayButtonClick);
+
+  resetButton.addEventListener("click", handleResetButtonClick);
+
+  randomButton.addEventListener("click", handleRandomButtonClick);
 
   return {
     addBoardCells,
