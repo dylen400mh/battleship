@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-shadow */
 // eslint-disable-next-line import/no-cycle
 import Game from "./Game";
@@ -25,9 +26,17 @@ const DOM = (() => {
     });
   };
 
+  // clear existing ships from player board display
+  const clearShips = () => {
+    const cells = playerBoardContainer.querySelectorAll(".ship");
+    cells.forEach((cell) => cell.classList.remove("ship"));
+  };
+
   // function used to display player ships
   const displayShips = (board) => {
-    // eslint-disable-next-line no-restricted-syntax
+    // clear existing ships
+    clearShips();
+
     for (const ship of board.getShips()) {
       if (ship.axis === "horizontal") {
         for (let i = ship.col, j = 0; j < ship.length; i += 1, j += 1) {
@@ -157,13 +166,15 @@ const DOM = (() => {
   };
 
   const handleRandomButtonClick = () => {
-    
-  }
+    Game.initializeObjects();
+    displayShips(Game.getPlayer().getBoard());
+  };
 
   const handleResetButtonClick = () => {
     // reset game variables and board state here
     resetBoardState();
     Game.initializeObjects();
+    displayShips(Game.getPlayer().getBoard());
 
     // remove event listener for board
     enemyBoardContainer.removeEventListener("click", handleBoardClick);
