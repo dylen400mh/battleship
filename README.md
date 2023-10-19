@@ -14,6 +14,8 @@ This project not only brings the game of Battleship to life but also showcases t
 
 ## Demo
 
+https://github.com/dylen400mh/battleship/assets/97004369/ed89811e-8eb7-4768-9be3-18d031631e67
+
 [LIVE DEMO](https://dylen400mh.github.io/battleship/)
 
 ## Features
